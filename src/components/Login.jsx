@@ -3,6 +3,7 @@ import {Header} from "./Header"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -34,7 +35,7 @@ export const Login = () => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
             navigate("/semester");
         })
         .catch((err) => {
@@ -53,10 +54,10 @@ export const Login = () => {
 
         if(Object.keys(validationErrors).length === 0) {
             if(!isLogin) {
-                axios.post("http://localhost:8080/signup", formData, {withCredentials: true}).then((res) => navigate("/semester"))
+                axios.post(`${API_BASE}/signup`, formData, {withCredentials: true}).then((res) => navigate("/semester"))
                 .catch((err) => console.log(err));
             } else {
-                axios.post("http://localhost:8080/login", {
+                axios.post(`${API_BASE}/login`, {
                     username: formData.username,
                     password: formData.password
                 }, {withCredentials: true}).then((res) => navigate("/semester"))

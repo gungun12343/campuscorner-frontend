@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const Paper = () => {
     let {subject} = useParams();
@@ -10,12 +11,12 @@ export const Paper = () => {
     const navigate = useNavigate();
 
     const fetchPapers = () => {
-        axios.get("http://localhost:8080/papers/"+subject).then((res) => setPapers(res.data))
+        axios.get(`${API_BASE}/papers/`+subject).then((res) => setPapers(res.data))
         .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
         })
         .catch((err) => {
             navigate("/login");

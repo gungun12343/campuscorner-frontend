@@ -3,6 +3,7 @@ import {Header} from "./Header";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const Notes = () => {
     const { subject } = useParams();
@@ -11,12 +12,12 @@ export const Notes = () => {
     let count = 1;
 
     const fetchNotes = () => {
-        axios.get("http://localhost:8080/notes/"+subject).then((res) => setNotes(res.data))
+        axios.get(`${API_BASE}/notes/`+subject).then((res) => setNotes(res.data))
         .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
         })
         .catch((err) => {
             navigate("/login");

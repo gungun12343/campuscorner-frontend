@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { Header } from "./Header"
 import { useEffect, useState } from "react";
 import axios from "axios";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const AllSubjects = () => {
     let {sem} = useParams();
@@ -10,12 +11,12 @@ export const AllSubjects = () => {
     const colors = ["bg-blue-100", "bg-green-100", "bg-pink-100", "bg-yellow-100"];
     
     const fetchSubjects = () => {
-        axios.get("http://localhost:8080/"+sem+"/subjects").then((res) => setSubjects(res.data))
+        axios.get(`${API_BASE}/`+sem+"/subjects").then((res) => setSubjects(res.data))
         .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
         })
         .catch((err) => {
             navigate("/login");

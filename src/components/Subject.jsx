@@ -3,6 +3,7 @@ import { Header } from "./Header";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const Subject = () => {
     const [syllabus, setSyllabus] = useState(null);
@@ -11,12 +12,12 @@ export const Subject = () => {
     const navigate = useNavigate();
 
     const getSyllabus = () => {
-        axios.get("http://localhost:8080/syllabus/"+sem).then((res) => setSyllabus(res.data[0].url))
+        axios.get(`${API_BASE}/syllabus/`+sem).then((res) => setSyllabus(res.data[0].url))
         .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
         })
         .catch((err) => {
             navigate("/login");

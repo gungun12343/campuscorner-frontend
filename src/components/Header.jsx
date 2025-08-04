@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom"
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const Header = () => {
     const location = useLocation();
@@ -9,7 +10,7 @@ export const Header = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
             setIsLoggedIn(true);
         })
         .catch((err) => {
@@ -18,7 +19,7 @@ export const Header = () => {
     }, [])
 
     const logOut = () => {
-        axios.get("http://localhost:8080/logout", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/logout`, {withCredentials: true}).then((res) => {
             setIsLoggedIn(false);
             navigate("/login")
         })

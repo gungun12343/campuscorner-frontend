@@ -2,12 +2,13 @@ import {Link, useNavigate } from "react-router-dom"
 import { Header } from "./Header"
 import { useEffect } from "react";
 import axios from "axios";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:8080/auth", {withCredentials: true}).then((res) => {
+        axios.get(`${API_BASE}/auth`, {withCredentials: true}).then((res) => {
             navigate("/semester");
         })
         .catch((err) => {
